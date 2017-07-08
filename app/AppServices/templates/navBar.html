@@ -1,0 +1,64 @@
+
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" 
+                    data-target="#navbar" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">Course App</a>
+        </div>
+
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">    
+                <li ng-repeat="menu in menus" ng-class="{ dropdown: menu.items === undefined }" class="{{menu.text}}"
+                        ng-click="stateChanged(menu)">
+
+                    <!-- without drop-down menu -->
+                    <a ng-if="menu.state" ui-sref={{menu.state}}> {{menu.text}} </a>
+
+                    <!--  drop-down menu -->
+                    <a ng-if="menu.items" class="dropdown-toggle" data-toggle="dropdown">{{menu.text}}
+                        <span class="caret"></span>
+                    </a>
+
+                    <ul ng-if="menu.items" class="dropdown-menu" >
+                        <li ng-repeat="item in menu.items">
+                            <a  ui-sref={{item.state}}>
+                                {{item.text}}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <ul class="nav navbar-nav navbar-right" ng-if="rightMenu">    
+                <li  class="dropdown {{rightMenu.text}}" ng-click="stateChanged(rightMenu)">
+                    
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <span>  <i class="fa fa-user-o fa-1x"></i> </span>
+                        Hi, {{firstName}}
+                    </a>
+
+                    <ul class="dropdown-menu" >
+                        <li ng-repeat="item in rightMenu.items">
+                            <a  ui-sref={{item.state}} ng-if="item.text !== 'LogOut'">
+                                {{item.text}}
+                            </a>
+                            <a ng-if="item.text === 'LogOut'" ng-click="$event.preventDefault(); stateChanged(item)">
+                                {{item.text}}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div> 
+    </div>
+</nav>
+
+

@@ -1,0 +1,37 @@
+
+
+<div class="row">
+    <div class="col-md-6 "  ng-if="professors.length > 0"> 
+        <strong> Your {{professors.length}} Professors having max Experience </strong>
+        <div class="col-md-12">
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="professor in professors">
+                    <span class="badge">{{professor.experience}}</span>
+                    {{professor.firstName}} {{professor.lastName}}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-6" ng-if="!professors.length > 0">
+        <strong> You don't have any Professors yet..! </strong>
+    </div>
+    <div class="col-md-6 " ng-if="courses.length > 0"> 
+        <strong> Your {{courses.length}} high paid applied Courses</strong>
+        <div class="col-md-12">
+            <ul class="list-group">
+                <li class="list-group-item hand-cursor" ng-repeat="course in courses" ng-click="showCourseDetail(course)">
+                    <span class="badge">{{course.fees}}</span>
+                    {{course.courseName}}
+                </li>
+            </ul>      
+        </div>
+    </div>
+    <div class="col-md-6" ng-if="!courses.length > 0">
+        <div class="row">
+            <strong> You haven't applied to any Course yet..! </strong>
+        </div>
+        <div class="row">
+            <a ui-sref="student.applyCourse"> Apply Course Here ..! </a>
+        </div>
+    </div>
+</div>

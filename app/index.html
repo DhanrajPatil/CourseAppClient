@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="courseApp" class="no-js"> 
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <title>Course App</title>
+        
+        <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+        <link href="bower_components/angular-toastr/dist/angular-toastr.min.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+        <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link href="bower_components/angular-ui-grid/ui-grid.min.css" rel="stylesheet" type="text/css"/>
+        <link href="bower_components/angularjs-datepicker/dist/angular-datepicker.min.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="app.css">
+        
+        <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+    </head>
+    
+    
+    <body>
+                
+        <!-- Fixed navbar -->
+        <div ui-view="navBarView"></div>
+
+        <!-- Begin page content -->
+        <div class="container content-view-div" ui-view="contentView"></div>
+
+        <!-- Footer FIxed Begin -->
+        <footer class="panel-footer my-fixed-footer">
+            <div class="container">
+                <p class="text-muted">
+                    <span class="glyphicon glyphicon-heart"></span> 
+                    <strong>Powered By The UmiTech Services</strong>
+                </p>
+            </div>
+        </footer>
+        
+        <!-- In production use:
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+        -->
+        <script src="bower_components/angular/angular.min.js" type="text/javascript"></script>
+        <script src="bower_components/angular-route/angular-route.min.js" type="text/javascript"></script>
+        <script src="bower_components/angular-touch/angular-touch.min.js" type="text/javascript"></script>
+        <script src="bower_components/angular-animate/angular-animate.min.js" type="text/javascript"></script>
+        <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js" type="text/javascript"></script>
+        <script src="bower_components/angular-resource/angular-resource.min.js" type="text/javascript"></script>
+        <script src="bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
+        <script src="bower_components/angular-base64/angular-base64.min.js" type="text/javascript"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="bower_components/underscore/underscore-min.js" type="text/javascript"></script>
+        <script src="bower_components/angular-ui-grid/ui-grid.min.js" type="text/javascript"></script>
+        <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.min.js" type="text/javascript"></script>
+        <script src="bower_components/angular-ui-select/dist/select.min.js" type="text/javascript"></script>
+        <script src="bower_components/angularjs-datepicker/dist/angular-datepicker.min.js" type="text/javascript"></script>
+        <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js" type="text/javascript"></script>
+        <script src="bower_components/moment/min/moment.min.js" type="text/javascript"></script>
+        
+        <script src="app.js"></script>
+        
+        <!-- AppServices Module -->
+        <script src="AppServices/AppServices.js" type="text/javascript"></script>
+        <script src="AppServices/directives/inputPassword.js" type="text/javascript"></script>
+        <script src="AppServices/directives/inputEmail.js" type="text/javascript"></script>
+        <script src="AppServices/services/userModel.js" type="text/javascript"></script>
+        <script src="AppServices/services/authService.js" type="text/javascript"></script>
+        <script src="AppServices/services/userService.js" type="text/javascript"></script>
+        <script src="AppServices/services/studProfessorModel.js" type="text/javascript"></script>
+        <script src="AppServices/services/studentService.js" type="text/javascript"></script>
+        <script src="AppServices/services/teacherService.js" type="text/javascript"></script>
+        <script src="AppServices/services/courseService.js" type="text/javascript"></script>
+        <script src="AppServices/services/toastrModel.js" type="text/javascript"></script>
+        <script src="AppServices/controllers/navBarController.js" type="text/javascript"></script>
+        
+        <!-- Authentication Module -->
+        <script src="Authenticate/authenticate.js" type="text/javascript"></script>
+        <script src="Authenticate/controllers/logInController.js" type="text/javascript"></script>
+        <script src="Authenticate/controllers/signUpController.js" type="text/javascript"></script>
+        
+        <!-- Student Module -->
+        <script src="Student/student.js" type="text/javascript"></script>
+        <script src="Student/controllers/studHomeController.js" type="text/javascript"></script>
+        <script src="Student/controllers/studContainerController.js" type="text/javascript"></script>
+        <script src="Student/controllers/applyCourseModalController.js" type="text/javascript"></script>
+        <script src="Student/controllers/allCoursesController.js" type="text/javascript"></script>
+        <script src="Student/controllers/studCoursesController.js" type="text/javascript"></script>
+        <script src="Student/controllers/viewStudCourseController.js" type="text/javascript"></script>
+        
+        <!-- Teacher Module -->
+        <script src="Teacher/teacher.js" type="text/javascript"></script>
+        <script src="Teacher/services/courseModel.js" type="text/javascript"></script>
+        <script src="Teacher/controllers/teacherContainerController.js" type="text/javascript"></script>
+        <script src="Teacher/controllers/teacherHomeController.js" type="text/javascript"></script>
+        <script src="Teacher/controllers/createEditCourseController.js" type="text/javascript"></script>
+        <script src="Teacher/controllers/viewCourseController.js" type="text/javascript"></script>
+        <script src="Teacher/controllers/teacherCoursesController.js" type="text/javascript"></script>
+        <script src="Teacher/controllers/teacherColleaguesController.js" type="text/javascript"></script>
+    </body>
+</html>

@@ -1,0 +1,43 @@
+
+
+<div class="container">
+    <div class="col-md-12">
+        <div class="col-md-2"></div>
+        
+        <div class="col-md-8">
+            <div class="form-group">
+
+                <div class="row margin-control">
+                    <select class="form-control" ng-options="role for role in userRoles" ng-model="user.userRole">
+                    </select>
+                </div>
+
+                <div class="row margin-control">
+                    <input class="form-control" type="text" ng-model="user.firstName" placeholder="First Name">
+                </div>                    
+
+                <div class="row margin-control"> 
+                    <input class="form-control" type="text" ng-model="user.lastName" placeholder="Last Name">
+                </div>          
+
+                <input-email email-model="user.emailId" placeholder='EMAIL ID' 
+                         error-message='Id is Already in Use..! Please Try Other.' 
+                         context='SIGNUP' is-valid-email="user.isValidEmail"> </input-email>
+
+                <input-password inputmodel="user.password" placeholder='PASSWORD' iconcolor='cadetblue'> </input-password>
+                
+                <input-password inputmodel="confirmPassword" placeholder='CONFIRM PASSWORD' iconcolor='cornflowerblue'> </input-password> 
+
+                <div class="row margin-control"> 
+                    <button class="btn btn-primary btn-block" ng-click="signUp()"> Sign UP </button>
+                </div>
+                
+                <div class="row margin-control text-center">
+                    <a ui-sref='authenticate.logIn'> Already has Account. Please Log In here..! </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-2"></div>
+    </div>    
+</div>

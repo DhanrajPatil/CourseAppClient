@@ -1,0 +1,69 @@
+
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<div class="container">
+    <div class="row">
+        <a class="col-sm-3 pull-left hand-cursor" ng-click="go('all')"> 
+            <i class="fa fa-list" aria-hidden="true"></i>
+            All Courses
+        </a>
+        <label class="col-sm-3">Your {{studCourse.courseName}} Course Details</label>
+        <a class="col-sm-3 pull-right hand-cursor" ng-click="go('my')"> 
+            <i class="fa fa-address-card" aria-hidden="true"></i>
+            My Courses
+        </a>
+    </div>
+    <form>
+        <div class="form-group row">
+            <label class="col-sm-4 col-lg-2 col-md-3 my-label-color">Course Type:</label>
+            <label class="col-sm-8 col-lg-10 col-md-9" ng-bind="studCourse.courseType"></label>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-sm-4 col-lg-2 col-md-3 my-label-color"> Fees Paid:</label>
+            <label class="col-sm-8 col-lg-10 col-md-9" ng-bind="studCourse.feesPaid"></label>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-4 col-lg-2 col-md-3 my-label-color">Remaining Fees:</label>
+            <label class="col-sm-8 col-lg-10 col-md-9" ng-bind="studCourse.remainingFees"></label>            
+            <a class="col-sm-3 pull-right hand-cursor" ng-click="payRemainingFees()"> 
+                <i class="fa fa-credit-card" aria-hidden="true"></i>
+                Pay Remaining Fees
+            </a>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-4 col-lg-2 col-md-3 my-label-color">Min. Passing Marks:</label>
+            <label class="col-sm-8 col-lg-10 col-md-9" ng-bind="studCourse.minPassingMarks"></label>
+        </div>
+        
+        <div class="form-group row">
+            <label  class="col-sm-4 col-lg-2 col-md-3 my-label-color">Marks Obtained In Course:</label>
+            <label class="col-sm-8 col-lg-10 col-md-9" ng-bind="studCourse.courseMarks"> </label>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-sm-4 col-lg-2 col-md-3 my-label-color">Course Start Date:</label>
+            <label class="col-sm-8 col-lg-10 col-md-9" ng-bind="startDate"> </label>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-4 col-lg-2 col-md-3 my-label-color">Course End Date:</label>
+            <label class="col-sm-8 col-lg-10 col-md-9" ng-bind="endDate"></label>
+        </div>
+        
+        <div class="form-group row">
+            <label class="col-sm-4 col-lg-2 col-md-3 my-label-color">Result of Course Exam</label>
+            <label class="col-sm-8 col-lg-10 col-md-9 redText" ng-if="studCourse.resultStatus === 'FAIL'" 
+                ng-bind="studCourse.resultStatus" >
+            </label>
+            <label class="col-sm-8 col-lg-10 col-md-9 greenText" ng-if="studCourse.resultStatus !== 'FAIL'" 
+                ng-bind="studCourse.resultStatus" >
+            </label>
+        </div>
+    </form>
+</div>

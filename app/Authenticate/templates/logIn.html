@@ -1,0 +1,33 @@
+
+
+<div class="container">    
+    <div class="col-md-12">        
+        <div class="col-md-2"></div>
+        
+        <div class="col-md-8">
+            <input-email email-model="user.emailId" placeholder='Email' 
+                         error-message='Wrong ID..! Please Enter Again.' 
+                         context='LOGIN' is-valid-email="user.isValidEmail"> </input-email>
+            
+            <input-password inputmodel="user.password" placeholder='PASSWORD' iconcolor='cornflowerblue'>
+            </input-password>
+        
+            <div class="row margin-control">
+                <button class="btn btn-primary btn-block" ng-click="logIn()"> Log In </button>
+            </div>
+            
+            <div class="row margin-control text-center">
+                <a ui-sref='authenticate.signUp'> Don't have Account. Please Sign Up here..! </a>
+            </div>
+        </div>
+        
+        <div class="col-md-2"></div>
+    </div>    
+</div>
+<div class="row">
+    <ul>
+    <li ng-repeat="membr in familyMember| filter:nameFilter">
+      <span> {{membr.name}} - {{membr.family}}</span>
+    </li>
+    </ul>
+</div>

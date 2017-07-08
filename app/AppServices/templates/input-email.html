@@ -1,0 +1,8 @@
+
+
+<div class="row margin-control">
+    <input ng-class="{'red-border': red, 'green-border': green}" class="form-control" 
+           type="email" ng-model="emailModel" 
+           placeholder="{{placeholder}}" ng-blur="checkEmailId()">
+    <span class="redText" ng-if="red"> {{errorMessage}} </span>
+</div>

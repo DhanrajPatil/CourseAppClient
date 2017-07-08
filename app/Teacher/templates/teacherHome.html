@@ -1,0 +1,37 @@
+
+
+<div class="col-md-12">
+    <div class="col-md-6"  ng-if="colleagues.length > 0"> 
+        <strong> Your {{colleagues.length}} Colleagues having max experience</strong>
+        <div class="col-md-12">
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="colleague in colleagues">
+                    <span class="badge">{{colleague.experience}}</span>
+                    Prof. {{colleague.firstName}} {{colleague.lastName}}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-6" ng-if="!colleagues.length > 0">
+        <strong> You don't have any colleagues yet..! </strong>
+    </div>
+    <div class="col-md-6"  ng-if="courses.length > 0"> 
+        <strong> Your {{courses.length}} High pay Courses </strong>
+        <div class="col-md-12">
+            <ul class="list-group">
+                <li class="list-group-item hand-cursor" ng-repeat="course in courses" ng-click="showCourseDetail(course)">
+                    <span class="badge">{{course.fees}}</span>
+                    {{course.courseName}}
+                </li>
+            </ul>            
+        </div>
+    </div>
+    <div class="col-md-12" ng-if="!courses.length > 0">
+        <div class="row">
+            <strong> You haven't taught any course yet..!  </strong>
+        </div>
+        <div class="row">
+            <a ui-sref="teacher.createCourse"> Create Course Here ..! </a>
+        </div>
+    </div>
+</div>

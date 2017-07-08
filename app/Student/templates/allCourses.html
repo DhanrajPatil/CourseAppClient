@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+
+<div class="container-fluid" id="applyCourseFromAll">
+    <div class="row">
+        <strong>All Courses </strong>
+        <div id="allCoursesGrid" ui-grid="courseGridOptions" class='courseGrid'> </div>
+    </div>
+    <ul uib-pagination   total-items="totalCourses"   ng-model="pagination.currentPage" ng-if="courses.length > 0"
+        max-size="pagination.maxSize"  class="pagination-md"  boundary-links="true"
+        previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+    </ul>
+    
+    <script type="text/ng-template" id="applyCourse.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Applying To {{course.courseName}} course</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <pre> You have to pay atleast {{course.minAdvancedFee}} Rs. amount to apply this course </pre>
+            <input type="number" ng-model="feesPaid" placeholder="Enter Fees" ng-blur="feesChanged()">
+            <span ng-if="inValidFees" class="redText"> 
+                Please Fees must be greater than {{course.minAdvancedFee - 1}} Rs.
+            </span>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="payFeesAndApply()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+</div>

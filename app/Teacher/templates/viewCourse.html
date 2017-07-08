@@ -1,0 +1,66 @@
+
+
+<div class="container">
+    <div class="row">
+        <label class="col-sm-3"> Course Details</label>
+        <a class="col-sm-3 pull-right hand-cursor" ng-click="edit()"> 
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> 
+            Edit Course
+        </a>
+    </div>
+    <form>
+        <div class="form-group row">
+            <label class="col-sm-4 col-lg-2 col-md-3 my-label-color">Course Name:</label>
+            <label class="col-sm-8 col-lg-10 col-md-9" ng-bind="course.courseName"> </label>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-4 col-lg-2 col-md-3 my-label-color">Course Type:</label>
+            <label class="col-sm-8 col-lg-10 col-md-9" ng-bind="course.courseType"></label>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-4 col-lg-2 col-md-3 my-label-color"> FEES: </label>
+            <label class="col-sm-8 col-lg-10 col-md-9" ng-bind="course.fees" > </label>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-sm-4 col-lg-2 col-md-3 my-label-color">Min Advanced Fees:</label>
+            <label class="col-sm-8 col-lg-10 col-md-9" ng-bind="course.minAdvancedFee"></label>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-4 col-lg-2 col-md-3 my-label-color">Max Students:</label>
+            <label class="col-sm-8 col-lg-10 col-md-9" ng-bind="course.maxStudents"></label>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-sm-4 col-lg-2 col-md-3 my-label-color">Marks Criteria:</label>
+            <label class="col-sm-8 col-lg-10 col-md-9" ng-bind="course.minMarksToApply"> </label>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-4 col-lg-2 col-md-3 my-label-color">Min. Passing Marks:</label>
+            <label class="col-sm-8 col-lg-10 col-md-9" ng-bind="course.minPassingMarks"></label>
+        </div>
+
+        <div class="form-group row">
+            <label  class="col-sm-4 col-lg-2 col-md-3 my-label-color">Course Start Date:</label>
+            <label class="col-sm-8 col-lg-10 col-md-9" ng-bind="startDate"> </label>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-4 col-lg-2 col-md-3 my-label-color">Course End Date:</label>
+            <label class="col-sm-8 col-lg-10 col-md-9" ng-bind="endDate"></label>
+        </div>
+        
+        <div class="form-group row">
+            <label class="col-sm-4 col-lg-2 col-md-3 my-label-color">No Of Students Applied to Course:</label>
+            <label class="col-sm-8 col-lg-10 col-md-9" ng-bind="course.noOfStudents"></label>
+        </div>
+        
+        <div class="form-group row text-center" ng-if='!isNaN(course.noOfStudents)'>
+            <a ui-ref="{{studentState}}(param)">Click Here to See the Students</a>
+        </div>
+    </form>
+</div>
