@@ -20,12 +20,12 @@ angular.module('courseApp.Teacher')
                 'students': 'Your Students of '
             };
             function initController(){
-                if( userModel.getCurrentUser() === {} || userModel.getCurrentUser().userId === undefined){
-                    userModel.setCurrentUser({});
-                    studProfessorModel.resetModel();
-                    $state.go('authenticate.logIn');
-                }
-                else{
+//                if( userModel.getCurrentUser() === {} || userModel.getCurrentUser().userId === undefined){
+//                    userModel.setCurrentUser({});
+//                    studProfessorModel.resetModel();
+//                    $state.go('authenticate.logIn');
+//                }
+//                else{
                     var currentState = $state.current.name;
                     var state = currentState.split('.')[1];
                     if( state === 'students'){
@@ -35,7 +35,7 @@ angular.module('courseApp.Teacher')
                     $scope.context = state;
                     $scope.firstName = userModel.getCurrentUser().firstName;
                     $scope.lastName = userModel.getCurrentUser().lastName;
-                }
+                //}
             }
             
             initController();

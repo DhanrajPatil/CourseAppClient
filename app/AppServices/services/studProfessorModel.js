@@ -56,7 +56,7 @@ angular.module('courseApp.AppServices')
                 };
                 
                 var setCourseStudents = function(courseId, myStudents){
-                    angular.copy(students[courseId], myStudents);
+                    students[courseId] = myStudents;
                 };
 
                 return {

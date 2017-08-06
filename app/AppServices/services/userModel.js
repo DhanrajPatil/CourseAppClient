@@ -42,6 +42,7 @@ angular.module('courseApp.AppServices')
             };
             
             var setMyCurrentUser = function(user){
+                currentUser = {};
                 angular.copy(user, currentUser);
             };
             

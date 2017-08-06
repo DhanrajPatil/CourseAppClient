@@ -30,7 +30,13 @@ angular.module('courseApp.AppServices')
                         },
                         getAll: { 
                             method: 'GET',
-                            isArray:true,
+                            isArray: true,
+                            headers: headersConfig
+                        },
+                        saveAll: {
+                            method: 'POST',
+                            isArray: true,
+                            url: courseResourceUrl + '/saveAll',
                             headers: headersConfig
                         }
                     }     

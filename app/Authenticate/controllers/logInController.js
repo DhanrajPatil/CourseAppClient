@@ -12,13 +12,12 @@ angular.module('courseApp.Authenticate')
                 lastName: "",
                 emailId: "",
                 password: "",
-                userRole: "",
-                isValidEmail: true
+                userRole: ""
             };
+            $scope.isValidEmail =  true;
             
             $scope.logIn = function(){                
                 if( validate() ){
-                    delete $scope.user.isValidEmail;
                     var emailId = $scope.user.emailId;
                     var password = $scope.user.password;
                     userModel.setCurrentUser($scope.user);
@@ -53,7 +52,7 @@ angular.module('courseApp.Authenticate')
                     isValid = false;
                     toastr.error('It is mandatory Field!', 'Password');
                 }
-                if( !$scope.user.isValidEmail ){
+                if( !$scope.isValidEmail ){
                     isValid = false;
                     toastr.error("EmailId does not exist", "Invalid EmailId");
                 }

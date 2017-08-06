@@ -6,39 +6,33 @@
 
 angular.module('courseApp.Teacher')
 
-    .controller('teacherHomeController',[ '$scope', '$state', 'studProfessorModel', 'teacherService', 'toastr', '$stateParams', 'userModel',
-        function($scope, $state, studProfessorModel , teacherService, toastr, $stateParams, userModel){
+    .controller('teacherHomeController',[ '$scope', '$state', 'studProfessorModel', 'teacherService', 'toastr',
+                '$stateParams', 'userModel', 'courseModel',
+        function($scope, $state, studProfessorModel , teacherService, toastr, $stateParams, userModel, courseModel){
             $scope.courses = [];
             $scope.colleagues = [];
             
             function initController(){
-                if( userModel.getCurrentUser() === {} || userModel.getCurrentUser().userId === undefined){
-                    userModel.setCurrentUser({});
-                    studProfessorModel.resetModel();
-                    $state.go('authenticate.logIn');
-                }else{
-                    // Extracting Colleagues
-                    var colleagues = studProfessorModel.getAllProfessors();
-                    if( colleagues === null || colleagues.length === 0 ){
-                        extractMyColleagues();
-                    }
-                    else{
-                        modifyColleaguesArray(colleagues);
-                    }
+                var colleagues = studProfessorModel.getAllProfessors();
+                if( colleagues === null || colleagues.length === 0 ){
+                    extractMyColleagues();
+                }
+                else{
+                    modifyColleaguesArray(colleagues);
+                }
 
-                    //Extracting Courses
-                    var courses = studProfessorModel.getAllCourses();
-                    if( courses === null || courses.length === 0){
+                //Extracting Courses
+                var courses = studProfessorModel.getAllCourses();
+                if( courses === null || courses.length === 0){
+                    extractMyCourses();
+                }
+                else{
+                    var teacher = courses[0].teacher;
+                    if(teacher.userId !== parseInt($stateParams.userId)){
+                        $scope.courses = [];
                         extractMyCourses();
-                    }
-                    else{
-                        var teacher = courses[0].teacher;
-                        if(teacher.userId !== parseInt($stateParams.userId)){
-                            $scope.courses = [];
-                            extractMyCourses();
-                        }else{
-                            $scope.courses = courses.slice(0,5);
-                        }
+                    }else{
+                        $scope.courses = courses.slice(0,5);
                     }
                 }
             }
@@ -85,6 +79,7 @@ angular.module('courseApp.Teacher')
             }
             
             $scope.showCourseDetail = function(course){
+                courseModel.setCurrentCourse(course);
                 $state.go('teacher.viewCourse', { userId: $stateParams.userId, courseId: course.courseId});
             };
             

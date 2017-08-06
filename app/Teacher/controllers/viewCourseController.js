@@ -10,16 +10,9 @@ angular.module('courseApp.Teacher')
             function( $scope, $state, $stateParams, studProfessorModel, toastr, courseModel, userModel){
                 
                 function initController(){
-                    if( userModel.getCurrentUser() === {} || userModel.getCurrentUser().userId === undefined){
-                        userModel.setCurrentUser({});
-                        studProfessorModel.resetModel();
-                        $state.go('authenticate.logIn');
-                    }
-                    else{
-                        courseId = parseInt($stateParams.courseId);
-                        $scope.course = {};
-                        fetchCourse(courseId);
-                    }
+                    courseId = parseInt($stateParams.courseId);
+                    $scope.course = {};
+                    fetchCourse(courseId);
                 }
                 
                 function fetchCourse(courseId){

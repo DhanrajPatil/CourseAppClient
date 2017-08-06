@@ -24,6 +24,7 @@ angular.module('courseApp.Teacher')
                             course.noOfStudents = students.length;
                         }
                     }
+                    return course;
                 }
                 
                 function fetchStudentsOfCourse(courseId){
@@ -41,12 +42,13 @@ angular.module('courseApp.Teacher')
                 
                 function fetchCurrentCourse(courseId){
                     if(course === null || course.courseId !== parseInt(courseId)){
-                        fetchCourse(courseId);
+                        return fetchCourse(courseId);
                     }
                     return course;
                 }
                 
                 function setCurrentCourse(myCourse) {
+                    course = {};
                     angular.copy(myCourse, course);
                 }
                 

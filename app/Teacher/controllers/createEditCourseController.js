@@ -12,6 +12,7 @@ angular.module('courseApp.Teacher')
 
                 var courseObj = {
                     id: 1,
+                    headingName: "Course1",
                     courseName: "Course1",
                     courseType: "EDUCATION",
                     fees: ""
@@ -20,29 +21,12 @@ angular.module('courseApp.Teacher')
                 var numberOfCourses = 0;
                 
                 function initController(){
-                    if( userModel.getCurrentUser() === {} || userModel.getCurrentUser().userId === undefined){
-                        userModel.setCurrentUser({});
-                        studProfessorModel.resetModel();
-                        $state.go('authenticate.logIn');
-                    }
-                    else{
-                        $scope.courses =[
-                            {
-                                id: 1,
-                                courseName: "Course1",
-                                courseType: "EDUCATION",
-                                fees: ""
-                            }
-                        ];
-                        numberOfCourses = 1;
-                        $scope.selectedCourse = $scope.courses[0];
-                        
-                        setEditCreateConfig(); //  set configuration for edit course screen          
-                        setDateConfig();  // Date configs
-                        
-                        $scope.courseTypes = userModel.getCourseTypes();
-                        $scope.teacher = userModel.getCurrentUser();
-                    }
+                    $scope.courses = [];
+                    setEditCreateConfig(); //  set configuration for edit course screen          
+                    setDateConfig();  // Date configs
+
+                    $scope.courseTypes = userModel.getCourseTypes();
+                    $scope.teacher = userModel.getCurrentUser();
                 }
 
                 $scope.setTabClass = function(courseId){
@@ -52,43 +36,73 @@ angular.module('courseApp.Teacher')
                         return '';
                     }
                 };
+                
+                $scope.setSelectedCourse = function(courseId){
+                    _.filter($scope.courses, function(course){
+                        if(course.id === courseId){
+                            $scope.selectedCourse = course;
+                            $scope.startDate = course.startDate;
+                            $scope.endDate = course.endDate;
+                        }
+                    });
+                };
 
                 $scope.closeTab = function(id){
-                    $scope.courses = _.filter($scope.courses, function(course){
+                    var courses = _.filter($scope.courses, function(course){
                         return course.id !== id;
                     });
+                    $scope.courses = [];
+                    angular.copy(courses, $scope.courses);
+                    console.log('courses', courses);
+                    console.log('scope-courses', $scope.courses);
                 };
 
                 $scope.addTab = function(){
                     numberOfCourses++;
-                    courseObj.id = $scope.courses.length;
+                    courseObj.id = numberOfCourses;
                     courseObj.courseName = 'Course' + numberOfCourses;
+                    courseObj.headingName = courseObj.courseName;
                     $scope.courses.push( angular.copy(courseObj) );
                 };
                 
-                $scope.createCourse = function(){
-                    if(validate()){                        
-                        $scope.course.startDate = new Date($scope.startDate);
-                        $scope.course.endDate = new Date($scope.endDate);
-                        
-                        $scope.teacher.noOfCoursesThought += 1;
-                        $scope.course.teacher = $scope.teacher;
-
-                        courseService.create($scope.course).$promise.then(
+                $scope.clearAllCourses = function(){
+                    numberOfCourses = 0;
+                    $scope.courses = $scope.courses.map(
+                        function(){
+                            numberOfCourses++;
+                            courseObj.id = numberOfCourses;
+                            courseObj.courseName = 'Course' + numberOfCourses;
+                            courseObj.headingName = courseObj.courseName;
+                            return angular.copy(courseObj);
+                        }
+                    );
+                };
+                
+                $scope.clearCourse = function(){
+                    
+                };
+                
+                $scope.saveAllCourses = function(){                    
+                    if( validateAllCourses() ){
+                        courseService.saveAll($scope.coursesToSave).$promise.then(
                             function(response){
-                                $scope.course.courseId = response.courseId;
-                                studProfessorModel.addCourse($scope.course);
-                                toastr.success("Created Successfully", "Course");
-                                $state.go('teacher.viewCourse', { userId: $stateParams.userId, 
-                                    courseId: response.courseId});                 
+                                console.log(response);
+                                response.data.forEach(  
+                                    function(course){
+                                        delete course.teacher;
+                                        studProfessorModel.addCourse(course);
+                                    }
+                                );
+                                toastr.success("Saved Successfully", "Courses");             
                             },
                             function(){
                                 toastr.error("Something went wrong while creating Course", "Course");
                             }
                         );
+                    }else{
+                        $scope.teacher.noOfCoursesThought = $scope.noOfCoursesThought;
                     }
                 };
-                
                 
                 $scope.editCourse = function(){
                     if(validate()){
@@ -122,6 +136,7 @@ angular.module('courseApp.Teacher')
                 
                 $scope.$watch('startDate', function(newValue, oldValue){
                     if(newValue && newValue !== oldValue){
+                        $scope.selectedCourse.startDate = $scope.startDate;
                         if($scope.endDate){
                             if(newValue > $scope.endDate){
                                 $scope.endDate = "";
@@ -133,28 +148,39 @@ angular.module('courseApp.Teacher')
                     }
                 });
                 
-                function validate(){
+                $scope.$watch('endDate', function(newValue, oldValue){
+                    if(newValue && newValue !== oldValue){
+                        $scope.selectedCourse.endDate = $scope.endDate;
+                    }
+                });
+                
+                function validateAllCourses() {
+                    $scope.noOfCoursesThought = $scope.teacher.noOfCoursesThought;
+                    $scope.teacher.noOfCoursesThought += $scope.courses.length;
+                    $scope.coursesToSave = [];
+                    var notValid = $scope.courses.some( function(course){
+                        var tempCourse = {};
+                        angular.copy(course, tempCourse);
+                        delete tempCourse.headingName;
+                        tempCourse.teacher = $scope.teacher;
+                        $scope.coursesToSave.push(tempCourse);
+                        return !validateCourse(tempCourse);
+                    });
+                    return !notValid;
+                }
+                
+                function validateCourse(course){
                     var title = "Create Course",
                         isValid = true,
                         msg = "",
                         count = 0;
-                    angular.forEach($scope.course, function(value, key){
+                    angular.forEach(course, function(value, key){
                         if(value === undefined || value === null || value === ""){
                             count ++;
                             isValid = false;
                             msg = (count === 1) ? key : (msg + ", " + key);
                         }
                     });
-                    if( !$scope.startDate ){
-                        count++;
-                        isValid = false;
-                        msg = (count === 1) ? "startDate" : (msg + ", " + "startDate");
-                    }
-                    if( !$scope.endDate ){
-                        count++;
-                        isValid = false;
-                        msg = (count === 1) ? "endDate" : (msg + ", " + "endDate");
-                    }
                     if(!isValid){
                         msg = (count > 1) ? (msg + " are Empty") : (msg + "is Empty");
                         toastr.error(msg, title);
@@ -195,19 +221,25 @@ angular.module('courseApp.Teacher')
                         $scope.isCourseStarted = $scope.course.startDate < currentDate;
                         $scope.isCourseEnded = $scope.course.endDate < currentDate;
                     }else{
+                        $scope.courses.push( angular.copy(courseObj) );
                         $scope.context = 'CREATE';
                         $scope.isCourseStarted = false;
                         $scope.isCourseEnded = false;
                     }
+                    $scope.selectedCourse = $scope.courses[0];
+                    numberOfCourses++;
                 }
                 
                 function fetchCourse(courseId){
-                    $scope.course = courseModel.fetchCurrentCourse(courseId);
-                    if( !$scope.course ){
+                    var course = courseModel.fetchCurrentCourse(courseId);
+                    if( !course ){
                         toastr.error("Course not found for courseID", "Not Found");
                     }else{
-                        $scope.startDate = new Date($scope.course.startDate);
-                        $scope.endDate = new Date($scope.course.endDate);
+                        course.headingName = course.courseName;
+                        $scope.course = course;                    
+                        $scope.courses.push( course );
+                        $scope.startDate = new Date(course.startDate);
+                        $scope.endDate = new Date(course.endDate);
                     }
                 }
                 

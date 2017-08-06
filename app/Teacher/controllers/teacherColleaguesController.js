@@ -64,26 +64,18 @@ angular.module('courseApp.Teacher')
                 ];
                 
                 function initController(){
-                    
-                    if( userModel.getCurrentUser() === {} || userModel.getCurrentUser().userId === undefined){
-                        userModel.setCurrentUser({});
-                        studProfessorModel.resetModel();
-                        $state.go('authenticate.logIn');
-                    }
-                    else{
-                        var colleagues  = studProfessorModel.getAllProfessors();
-                        var me = userModel.getCurrentUser();
-                        $scope.colleagues = _.filter(colleagues, function(colleague){
-                            return colleague.userId !== me.userId;
-                        });
+                    var colleagues  = studProfessorModel.getAllProfessors();
+                    var me = userModel.getCurrentUser();
+                    $scope.colleagues = _.filter(colleagues, function(colleague){
+                        return colleague.userId !== me.userId;
+                    });
 
-                        $scope.gridOptions = {
-                            enableColumnResizing: false, // to making all columns unresizeable....
-                            enableSorting: true, // to disable sorting of all columns 
-                            columnDefs: columnDefinations, // all columns defination
-                            data: $scope.colleagues
-                        };
-                    }
+                    $scope.gridOptions = {
+                        enableColumnResizing: false, // to making all columns unresizeable....
+                        enableSorting: true, // to disable sorting of all columns 
+                        columnDefs: columnDefinations, // all columns defination
+                        data: $scope.colleagues
+                    };
                 }
                 initController();
             }

@@ -4,22 +4,22 @@
 
     <div class="row">
         <ul class="nav nav-tabs">
-            <li ng-repeat="course in courses">
-                <a data-toggle="tab" href="">
-                    {{course.name}}
-                    <span ng-click="closeTab(course.id)"> <i class="fa fa-times" aria-hidden="true"> </i> </span>
+            <li ng-repeat="course in courses" ng-class="setTabClass(course.id)">
+                <a data-toggle="tab" ng-click="setSelectedCourse(course.id)" >
+                    {{course.headingName}}
+                    <span ng-click="closeTab(course.id)" ng-hide="context==='EDIT'"> <i class="fa fa-times" aria-hidden="true"> </i> </span>
                 </a>
             </li>
             <li>
-                <span ng-click="addTab()">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
+                <span ng-click="addTab()" ng-hide="context==='EDIT'">
+                    <i class="fa fa-plus plus-icon-padding" aria-hidden="true"></i>
                 </span>
             </li>
         </ul>
     </div>
     <div class="row">
         <div class="tab-content">
-            <div ng-repeat="course in courses" class="tab-pane fade" ng-class="setTabClass(course.id)">
+            <div ng-repeat="course in courses" class="tab-pane fade" >
                 <div ng-include="courseForm.html">
 
                 </div>
@@ -28,107 +28,116 @@
     </div>
 
     <div type="template/html" id="courseForm.html">
-    <form>
-        <div class="form-group col-sm-12">
-            <label for="inputcourse" class="col-sm-4 col-lg-2 col-md-3 col-form-label">Course Name:</label>
-            <div class="col-sm-8 col-lg-10 col-md-9" >
-                <input class="form-control" type="text" id="inputcourse" ng-disabled="context==='EDIT'"
-                       ng-model="course.courseName" placeholder="Course Name">
+        <form>
+            <div class="form-group col-sm-12 uts-mar-top-md">
+                <label for="inputcourse" class="col-sm-4 col-lg-2 col-md-3 col-form-label">Course Name:</label>
+                <div class="col-sm-8 col-lg-10 col-md-9" >
+                    <input class="form-control" type="text" id="inputcourse" ng-disabled="context==='EDIT'"
+                           ng-model="selectedCourse.courseName" placeholder="Course Name">
+                </div>
             </div>
-        </div>
 
-        <div class="form-group col-sm-12">
-            <label for="courseType" class="col-sm-4 col-lg-2 col-md-3 col-form-label">Course Type:</label>
-            <div class="col-sm-8 col-lg-10 col-md-9">
-                <select class="form-control" id="courseType" ng-options="type for type in courseTypes"
-                        ng-model="course.courseType" ng-disabled="isStudentsApplied">
-                </select>
+            <div class="form-group col-sm-12">
+                <label for="courseType" class="col-sm-4 col-lg-2 col-md-3 col-form-label">Course Type:</label>
+                <div class="col-sm-8 col-lg-10 col-md-9">
+                    <select class="form-control" id="courseType" ng-options="type for type in courseTypes"
+                            ng-model="selectedCourse.courseType" ng-disabled="isStudentsApplied">
+                    </select>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group col-sm-12">
-            <label for="fees" class="col-sm-4 col-lg-2 col-md-3 col-form-label">FEES:</label>
-            <div class="col-sm-8 col-lg-10 col-md-9" ng-disabled="isStudentsApplied">
-                <input class="form-control" type="number" id="fees"
-                       ng-model="course.fees" placeholder="Course Fees">
+            <div class="form-group col-sm-12">
+                <label for="fees" class="col-sm-4 col-lg-2 col-md-3 col-form-label">FEES:</label>
+                <div class="col-sm-8 col-lg-10 col-md-9" ng-disabled="isStudentsApplied">
+                    <input class="form-control" type="number" id="fees"
+                           ng-model="selectedCourse.fees" placeholder="Course Fees">
+                </div>
             </div>
-        </div>
 
-        <div class="form-group col-sm-12">
-            <label for="advanceFee" class="col-sm-4 col-lg-2 col-md-3 col-form-label">Min Advanced Fees :</label>
-            <div class="col-sm-8 col-lg-10 col-md-9">
-                <input class="form-control" type="number" id="advanceFee" ng-disabled="isStudentsApplied"
-                       ng-model="course.minAdvancedFee" placeholder="Min Advanced Fee For Course">
+            <div class="form-group col-sm-12">
+                <label for="advanceFee" class="col-sm-4 col-lg-2 col-md-3 col-form-label">Min Advanced Fees :</label>
+                <div class="col-sm-8 col-lg-10 col-md-9">
+                    <input class="form-control" type="number" id="advanceFee" ng-disabled="isStudentsApplied"
+                           ng-model="selectedCourse.minAdvancedFee" placeholder="Min Advanced Fee For Course">
+                </div>
             </div>
-        </div>
 
-        <div class="form-group col-sm-12">
-            <label for="maxStuds" class="col-sm-4 col-lg-2 col-md-3 col-form-label">Max Students:</label>
-            <div class="col-sm-8 col-lg-10 col-md-9">
-                <input class="form-control" type="number" id="maxStuds" 
-                       ng-model="course.maxStudents" placeholder="Max No Of Students Entry in Course">
+            <div class="form-group col-sm-12">
+                <label for="maxStuds" class="col-sm-4 col-lg-2 col-md-3 col-form-label">Max Students:</label>
+                <div class="col-sm-8 col-lg-10 col-md-9">
+                    <input class="form-control" type="number" id="maxStuds" 
+                           ng-model="selectedCourse.maxStudents" placeholder="Max No Of Students Entry in Course">
+                </div>
             </div>
-        </div>
 
-        <div class="form-group col-sm-12">
-            <label for="marksForApplyCourse" class="col-sm-4 col-lg-2 col-md-3 col-form-label">Marks Criteria:</label>
-            <div class="col-sm-8 col-lg-10 col-md-9">
-                <input class="form-control" type="number" id="marksForApplyCourse"  ng-disabled="isStudentsApplied"
-                       ng-model="course.minMarksToApply" placeholder="Minimum Marks to Apply Course">
+            <div class="form-group col-sm-12">
+                <label for="marksForApplyCourse" class="col-sm-4 col-lg-2 col-md-3 col-form-label">Marks Criteria:</label>
+                <div class="col-sm-8 col-lg-10 col-md-9">
+                    <input class="form-control" type="number" id="marksForApplyCourse"  ng-disabled="isStudentsApplied"
+                           ng-model="selectedCourse.minMarksToApply" placeholder="Minimum Marks to Apply Course">
+                </div>
             </div>
-        </div>
 
-        <div class="form-group col-sm-12">
-            <label for="passingMarks" class="col-sm-4 col-lg-2 col-md-3 col-form-label">Min. Passing Marks:</label>
-            <div class="col-sm-8 col-lg-10 col-md-9">
-                <input class="form-control" type="number" id="passingMarks"  ng-disabled="isCourseEnded"
-                       ng-model="course.minPassingMarks" placeholder="Minimum Marks to Pass the Course">
+            <div class="form-group col-sm-12">
+                <label for="passingMarks" class="col-sm-4 col-lg-2 col-md-3 col-form-label">Min. Passing Marks:</label>
+                <div class="col-sm-8 col-lg-10 col-md-9">
+                    <input class="form-control" type="number" id="passingMarks"  ng-disabled="isCourseEnded"
+                           ng-model="selectedCourse.minPassingMarks" placeholder="Minimum Marks to Pass the Course">
+                </div>
             </div>
-        </div>
-        
-        <div class="form-group col-sm-12">
-            <label for="datepicker1" class="col-sm-4 col-lg-2 col-md-3 col-form-label">Course Start Date:</label>
-            <div class="col-sm-8 col-lg-10 col-md-9">
-                <p class="input-group" id="datepicker1">
-                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" 
-                           ng-model="startDate" is-open="startDatePopUp" datepicker-options="startDateOptions" 
-                           ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-disabled="isCourseStarted && isStudentsApplied" />
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="openStartDatePopUp()" ng-disabled="isStudentsApplied">
-                            <i class="glyphicon glyphicon-calendar"></i>
-                        </button>
-                    </span>
-                </p>
-            </div>
-        </div>
 
-        <div class="form-group col-sm-12">
-            <label for="datepicker2" class="col-sm-4 col-lg-2 col-md-3 col-form-label">Course End Date:</label>
-            <div class="col-sm-8 col-lg-10 col-md-9">
-                <p class="input-group" id="datepicker2">
-                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" 
-                           ng-model="endDate" is-open="endDatePopUp" datepicker-options="endDateOptions" 
-                           ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="openEndDatePopUp()">
-                            <i class="glyphicon glyphicon-calendar"></i>
-                        </button>
-                    </span>
-                </p>
+            <div class="form-group col-sm-12">
+                <label for="datepicker1" class="col-sm-4 col-lg-2 col-md-3 col-form-label">Course Start Date:</label>
+                <div class="col-sm-8 col-lg-10 col-md-9">
+                    <p class="input-group" id="datepicker1">
+                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" 
+                               ng-model="startDate" is-open="startDatePopUp" datepicker-options="startDateOptions" 
+                               ng-required="true" close-text="Close" alt-input-formats="altInputFormats" ng-disabled="isCourseStarted && isStudentsApplied" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="openStartDatePopUp()" ng-disabled="isStudentsApplied">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                    </p>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group col-sm-12">
-            <div class="col-sm-4 col-lg-2 col-md-3"> </div>
+            <div class="form-group col-sm-12">
+                <label for="datepicker2" class="col-sm-4 col-lg-2 col-md-3 col-form-label">Course End Date:</label>
+                <div class="col-sm-8 col-lg-10 col-md-9">
+                    <p class="input-group" id="datepicker2">
+                        <input type="text" class="form-control" uib-datepicker-popup="{{format}}" 
+                               ng-model="endDate" is-open="endDatePopUp" datepicker-options="endDateOptions" 
+                               ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="openEndDatePopUp()">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="form-group col-sm-12 uts-mar-bottom-none">
+                <div class="col-sm-4 col-lg-2 col-md-3"> </div>
+
+                <div class="col-sm-2 col-lg-2 col-md-2 " ng-if="context === 'CREATE'">
+                    <button class="btn btn-primary btn-block " ng-click="saveAllCourses()"> Save </button>
+                </div>
+
+                <div class="col-sm-2 col-lg-2 col-md-2" ng-if="context === 'EDIT'">
+                    <button class="btn btn-primary btn-block" ng-click="editCourse()"> Update </button>
+                </div>
+                
+                <div class="col-sm-2 col-lg-2 col-md-2 " ng-if="context === 'CREATE'">
+                    <button class="btn btn-primary btn-block " ng-click="clearAllCourses()"> Clear All </button>
+                </div>
+                
+                <div class="col-sm-2 col-lg-2 col-md-2 " >
+                    <button class="btn btn-primary btn-block " ng-click="clearCourse()"> Clear </button>
+                </div>
+            </div>            
             
-            <div class="col-sm-5 col-lg-3 col-md-4 " ng-if="context === 'CREATE'">
-                <button class="btn btn-primary btn-block " ng-click="createCourse()"> Create </button>
-            </div>
-            
-            <div class="col-sm-5 col-lg-3 col-md-4" ng-if="context === 'EDIT'">
-                <button class="btn btn-primary btn-block" ng-click="editCourse()"> Update </button>
-            </div>
-        </div>
-    </form>
+        </form>
     </div>
 </div>

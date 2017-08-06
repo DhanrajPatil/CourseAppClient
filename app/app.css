@@ -1,4 +1,23 @@
 /* app css stylesheet */
+.uts-mar-top-md{
+    margin-top: 10px;
+}
+
+.uts-mar-top-sm{
+    margin-top: 5px;
+}
+
+.uts-mar-top-lg{
+    margin-top: 20px;
+}
+
+.uts-mar-top-none{
+    margin-top: 0px;
+}
+
+.uts-mar-bottom-none{
+    margin-bottom: 0px;
+}
 
 .menu {
   list-style: none;
@@ -74,4 +93,13 @@
 
 .greenText{
     color: green;
+}
+
+.plus-icon-padding{
+    padding-top: 15px;
+    padding-left: 10px;
+}
+
+p {
+    margin: 0 0 0px;  /* for overiding bootstrap css */
 }
