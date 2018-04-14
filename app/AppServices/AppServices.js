@@ -41,4 +41,4 @@ angular.module('courseApp.AppServices', [
             };
         }
     ])
-    .constant('host', 'http://localhost:8084/CourseAppAPI/resources'); //localhost  OR  192.168.43.129
+    .constant('host', 'http://localhost:9090/CourseAppAPI/resources'); //localhost  OR  192.168.43.129

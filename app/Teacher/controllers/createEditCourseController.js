@@ -87,13 +87,14 @@ angular.module('courseApp.Teacher')
                         courseService.saveAll($scope.coursesToSave).$promise.then(
                             function(response){
                                 console.log(response);
-                                response.data.forEach(  
+                                response.forEach(
                                     function(course){
                                         delete course.teacher;
                                         studProfessorModel.addCourse(course);
                                     }
                                 );
-                                toastr.success("Saved Successfully", "Courses");             
+                                toastr.success("Saved Successfully", "Courses");
+                                $state.go('teacher.courses');
                             },
                             function(){
                                 toastr.error("Something went wrong while creating Course", "Course");
